@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Mission>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@*Временные стили, обязательно убрать в отдельный файл*@
+
+<style type="text/css">
+    TABLE {
+        width: 300px; /* Ширина таблицы */
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        margin-top:50px;
+    }
+
+    TD, TH {
+        padding: 3px; /* Поля вокруг содержимого таблицы */
+        border: 1px solid black; /* Параметры рамки */
+    }
+
+    TH {
+        background: #b0e0e6; /* Цвет фона */
+    }
+</style>
+
+<div>
+    <form action="/" method="post">
+        <input type="text" name="name" value="" placeholder="Введите название задачи" />
+        <button type="submit">Добавить</button>
+    </form>
+    <table>
+        <tr>
+            <th>№ задачи</th>
+            <th>Задача</th>
+            <th>Время добавления</th>
+            <th>Статус выполнения</th>
+        </tr>
+        @foreach (var op in Model)
+        {
+            <tr>
+                <td>@op.Id</td>
+                <td>@op.Name</td>
+                <td>@op.Add_Time</td>
+                <td>@op.Complete</td>
+            </tr>
+        }
+
+    </table>
+</div>
