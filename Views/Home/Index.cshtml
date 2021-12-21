@@ -5,43 +5,24 @@
 
 
 @*Временные стили, обязательно убрать в отдельный файл*@
-
-<style type="text/css">
-    TABLE {
-        width: 300px; /* Ширина таблицы */
-        border-collapse: collapse; /* Убираем двойные линии между ячейками */
-        margin-top:50px;
-    }
-
-    TD, TH {
-        padding: 3px; /* Поля вокруг содержимого таблицы */
-        border: 1px solid black; /* Параметры рамки */
-    }
-
-    TH {
-        background: #b0e0e6; /* Цвет фона */
-    }
-</style>
-
 <div>
-    <form action="/" method="post">
-        <input type="text" name="name" value="" placeholder="Введите название задачи" />
-        <button type="submit">Добавить</button>
+    <form action="/" method="post" class="form-inline mb-3">
+        <input type="text" name="name" value="" placeholder="Введите название задачи" class="form-control mr-3" />
+        <button class="btn btn-primary" type="submit">Добавить</button>
     </form>
-    <table>
+    <table class="table">
         <tr>
-            <th>№ задачи</th>
-            <th>Задача</th>
+            <th>Задание</th>
             <th>Время добавления</th>
             <th>Статус выполнения</th>
         </tr>
         @foreach (var op in Model)
         {
             <tr>
-                <td>@op.Id</td>
                 <td>@op.Name</td>
                 <td>@op.Add_Time</td>
                 <td>@op.Complete</td>
+                <td><a asp-action="Delete" asp-route-id="@op.Id">Удалить</a></td>    
             </tr>
         }
 

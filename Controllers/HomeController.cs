@@ -41,7 +41,14 @@ namespace asp_todo.Controllers
             _context.SaveChanges();
             return View(_context.Missions.ToList());
         }
-
+        //GET /todo/delete/5
+        public async Task<ActionResult> Delete(int id)
+        {
+            Mission item = await _context.Missions.FindAsync(id);
+            _context.Missions.Remove(item);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         public IActionResult Privacy()
         {
             return View();

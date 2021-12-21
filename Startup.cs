@@ -1,6 +1,7 @@
 using asp_todo.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,8 @@ namespace asp_todo
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<MissionContext>(options => options.UseSqlServer(connection));
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -39,7 +42,8 @@ namespace asp_todo
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
+            };
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseRouting();

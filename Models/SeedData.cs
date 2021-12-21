@@ -13,6 +13,7 @@ namespace asp_todo.Models
         //Принимает в аргументы middleware 
         public static void EnsurePopulated(IApplicationBuilder app)
         {
+            //отправка данных в бд
             MissionContext context = app.ApplicationServices
                 .GetRequiredService<MissionContext>();
             context.Database.Migrate();
