@@ -27,6 +27,7 @@ namespace asp_todo
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<MissionContext>(options => options.UseSqlServer(connection));
+            services.AddTransient<ITabRepository, EFTabRepository>();
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddControllersWithViews();

@@ -41,6 +41,22 @@ namespace asp_todo.Controllers
             _context.SaveChanges();
             return View(_context.Missions.ToList());
         }
+
+        [HttpPost]
+        public IActionResult AddTab(Tab tab)
+        {
+
+            _context.Tabs.AddRange(
+                new Tab
+                {
+                    Id = tab.Id,
+                    Name = tab.Name
+                }
+                );
+
+            _context.SaveChanges();
+            return ViewComponent("Tab", new { tabService = _context.Tabs });
+        }
         //GET /todo/delete/5
         public async Task<ActionResult> Delete(int id)
         {

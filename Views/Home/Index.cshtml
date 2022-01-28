@@ -1,30 +1,44 @@
-﻿@model IEnumerable<Mission>
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-
-@*Временные стили, обязательно убрать в отдельный файл*@
+﻿@model List<Mission>
+@*@{
+        ViewData["Title"] = "Home Page";
+    попробовать разбитьь на частичные представления
+    }*@
 <div>
     <form action="/" method="post" class="form-inline mb-3">
-        <input type="text" name="name" value="" placeholder="Введите название задачи" class="form-control mr-3" />
+        <input required type="text" name="name" value="" placeholder="Введите название задачи" class="form-control mr-3" />
         <button class="btn btn-primary" type="submit">Добавить</button>
     </form>
-    <table class="table">
-        <tr>
-            <th>Задание</th>
-            <th>Время добавления</th>
-            <th>Статус выполнения</th>
-        </tr>
-        @foreach (var op in Model)
-        {
+    <form action="/" method="post" class="form-inline mb-3">
+        <input required type="text" name="name" value="" placeholder="Введите название списка задач" class="form-control mr-3" />
+        <button class="btn btn-primary" type="submit" asp-controller="Home"
+           asp-action="AddTab">Добавить список задач</button>
+    </form>
+    <div class="content d-flex justify-content-between">
+        <div class="content__left col-lg-3">
+            @await Component.InvokeAsync("Tab")
+        </div>
+        <table class="table content__right">
             <tr>
-                <td>@op.Name</td>
-                <td>@op.Add_Time</td>
-                <td>@op.Complete</td>
-                <td><a asp-action="Delete" asp-route-id="@op.Id">Удалить</a></td>    
+                <th>Задание</th>
+                <th>Время добавления</th>
+                <th>Статус выполнения</th>
             </tr>
-        }
+            @foreach (var op in Model)
+            {
 
-    </table>
+                <tr>
+                    <td>@op.Name</td>
+                    <td>@op.Add_Time</td>
+                    <td>
+                        <form action="/" method="post">
+                            <input @*asp-action="Checkbox_switch" asp-route-id="@op.Id"*@ asp-for="@op.Complete" type="checkbox" name="name" value="false" />
+                        </form>
+                    </td>
+                    <td><a asp-action="Delete" asp-route-id="@op.Id">Удалить</a></td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
 </div>
