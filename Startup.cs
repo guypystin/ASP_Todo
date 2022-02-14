@@ -56,6 +56,9 @@ namespace asp_todo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "asp",
+                   pattern: "{controller=Home}/{action=TabClick}/{number?}");
             });
             SeedData.EnsurePopulated(app);
         }

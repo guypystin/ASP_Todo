@@ -6,12 +6,17 @@
 <div>
     <form action="/" method="post" class="form-inline mb-3">
         <input required type="text" name="name" value="" placeholder="Введите название задачи" class="form-control mr-3" />
-        <button class="btn btn-primary" type="submit">Добавить</button>
+        <button class="btn btn-primary" type="submit" asp-controller="Home"
+                asp-action="Index">
+            Добавить
+        </button>
     </form>
     <form action="/" method="post" class="form-inline mb-3">
         <input required type="text" name="name" value="" placeholder="Введите название списка задач" class="form-control mr-3" />
         <button class="btn btn-primary" type="submit" asp-controller="Home"
-           asp-action="AddTab">Добавить список задач</button>
+                asp-action="AddTab">
+            Добавить список задач
+        </button>
     </form>
     <div class="content d-flex justify-content-between">
         <div class="content__left col-lg-3">

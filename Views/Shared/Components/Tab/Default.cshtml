@@ -2,5 +2,6 @@
 
 @foreach (var item in Model)
 {
-    <div>@item.Name</div>
+    
+    <a asp-route="Custom" asp-route-id="@item.Name" class="btn-block">@item.Name</a>
 }

@@ -12,6 +12,6 @@ namespace asp_todo.Models
         public string Name { get; set; }
         public DateTime Add_Time { get; set; }
         public bool Complete { get; set; }
-        public int Name_Id { get; set; }
+        public int Tab_Id { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace asp_todo.Controllers
 {
     public class HomeController : Controller
     {
+        
         private readonly ILogger<HomeController> _logger;
         private readonly MissionContext _context;
         public HomeController(ILogger<HomeController> logger, MissionContext context)
@@ -21,22 +22,24 @@ namespace asp_todo.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_context.Missions.ToList());
+            return View("~/Views/Home/Index.cshtml", _context.Missions.ToList());
         }
-
-        /*Дописать отправку ViewModel в представление */
+        
         [HttpPost]
         public IActionResult Index(Mission mission)
         {
             mission.Add_Time = System.DateTime.Now;
+            //mission.Tab_Id = UrlHelperExtensions.ActionLink.
             _context.Missions.AddRange(
                 new Mission
                 {
                     Id = mission.Id,
                     Name = mission.Name,
                     Add_Time = mission.Add_Time,
-                    Complete = mission.Complete
+                    Complete = mission.Complete,
+                    Tab_Id = mission.Tab_Id
                 }
+
                 );
             _context.SaveChanges();
             return View(_context.Missions.ToList());
@@ -55,7 +58,7 @@ namespace asp_todo.Controllers
                 );
 
             _context.SaveChanges();
-            return ViewComponent("Tab", new { tabService = _context.Tabs });
+            return Redirect("/");
         }
         //GET /todo/delete/5
         public async Task<ActionResult> Delete(int id)
@@ -65,7 +68,16 @@ namespace asp_todo.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        public IActionResult Privacy()
+        //GET /Home/1
+        [Route("/Home/TabClick/{id}", Name = "Custom")]
+        public async Task<ActionResult> TabClick(int id)
+        {
+            //return RedirectToAction("Home", "TabClick", new { id = number });
+            var users = _context.Missions.Where(p => p.Id == id);
+            int _umber = id;
+            return View("~/Views/Home/Index.cshtml", users.ToList());
+        }
+            public IActionResult Privacy()
         {
             return View();
         }
