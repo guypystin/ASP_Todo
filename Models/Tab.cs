@@ -10,7 +10,6 @@ namespace asp_todo.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [ForeignKey("Tab_Id")]
         public int Tab_Id { get; set; }
     }
 }

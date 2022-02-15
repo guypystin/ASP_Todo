@@ -23,7 +23,7 @@ namespace asp_todo.Models
                 context.Missions.AddRange(
                     new Mission
                     {
-                        Name = "Купить выпить",
+                        Name = "Первая задача",
                         Add_Time = System.DateTime.Now,
                         Complete = false
                     }
