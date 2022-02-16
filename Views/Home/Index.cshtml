@@ -1,19 +1,20 @@
 ﻿@model List<Mission>
 
 <div>
-    <form class="form-inline mb-3">
-        <input id="missionForm"  required type="text" name="name" value="" placeholder="Введите название задачи" 
-               class="form-control mr-3 first_form" />
-        <a class="btn btn-primary" onclick="clickIndex()">
-        Добавить
-        </a>
-    </form>
     <form action="/" method="post" class="form-inline mb-3">
-        <input class="form-control mr-3" required type="text"name="name"value="" 
-               placeholder="Введите название списка задач"/>
+        <input minlength="1" class="form-control mr-3" required type="text" name="name" value=""
+               placeholder="Введите название списка задач" />
         <button class="btn btn-primary" type="submit"
                 asp-controller="Home"
-                asp-action="AddTab"> Добавить список задач
+                asp-action="AddTab">
+            Добавить список задач
+        </button>
+    </form>
+    <form class="form-inline mb-3">
+        <input minlength="1" id="missionForm" required type="text" name="name" value="" placeholder="Введите название задачи"
+               class="form-control mr-3 first_form" />
+        <button class="btn btn-primary" onclick="clickIndex()">
+            Добавить
         </button>
     </form>
     <div class="content d-flex justify-content-between">
@@ -25,6 +26,7 @@
                 <th>Задание</th>
                 <th>Время добавления</th>
                 <th>Статус выполнения</th>
+                <th></th>
             </tr>
             @foreach (var op in Model)
             {
@@ -34,17 +36,17 @@
                     <td>@op.Add_Time</td>
                     <td>
                         <form action="/" method="post">
-                            <input asp-for="@op.Complete" 
-                                   type="checkbox" 
-                                   name="name" 
+                            <input asp-for="@op.Complete"
+                                   type="checkbox"
+                                   name="name"
                                    value="false" />
                         </form>
                     </td>
                     <td>
-                    <a asp-action="Delete" 
-                       asp-route-id="@op.Id">
-                        Удалить
-                    </a>
+                        <a asp-action="DeleteMission"
+                           asp-route-id="@op.Id">
+                            Удалить
+                        </a>
                     </td>
                 </tr>
             }

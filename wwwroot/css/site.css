@@ -1,10 +1,10 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-TABLE {
-    width: 300px; /* Ширина таблицы */
-    border-collapse: collapse; /* Убираем двойные линии между ячейками */
-    margin-top: 50px;
-}
+/*TABLE {
+    width: 300px;*/ /* Ширина таблицы */
+/*border-collapse: collapse;*/ /* Убираем двойные линии между ячейками */
+/*margin-top: 50px;
+}*/
 
 TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
@@ -14,72 +14,160 @@ TD, TH {
 TH {
     background: #b0e0e6; /* Цвет фона */
 }
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
-*{
+
+* {
 }
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff !important;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+tr {
+    height: 50px;
+}
+.content__left{
+    padding-left:0px;
+}
+.content__right {
+    max-height:100px;
+}
+
+
+.scroll-table-body {
+    height: 300px;
+    overflow-x: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.scroll-table table {
+    width: 100%;
+    table-layout: fixed;
+    border: none;
+}
+
+.scroll-table thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    background: #d8d8d8;
+    font-size: 14px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.scroll-table tbody td {
+    text-align: left;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.scroll-table tbody tr:nth-child(even) {
+    background: #f3f3f3;
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.sidebar {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding:5px;
+    margin-top:10px;
+    margin-left:0px;
+}
+
+.sidebar__item {
+    text-decoration:none;
+}
+
+.sidebar__delete {
+}
+.sidebar__delete-img{
+    width:20px;
+    height:20px;
+
 }

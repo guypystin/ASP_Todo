@@ -3,7 +3,7 @@
 function clickIndex() {
     var form = document.getElementById("missionForm");
     var formValue = `${form.value}`;
-    form.value = '';
+    //form.value = '';
     var model =
     {
         Name: formValue,

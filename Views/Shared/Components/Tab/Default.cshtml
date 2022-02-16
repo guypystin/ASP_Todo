@@ -2,6 +2,16 @@
 
 @foreach (var item in Model)
 {
-    
-    <a asp-route="Custom" asp-route-id="@item.Id" class="btn-block">@item.Name</a>
+    <div class="sidebar ">
+        <a class="btn-block sidebar__item" 
+           asp-route="Custom" 
+           asp-route-id="@item.Id">
+        @item.Name
+        </a>
+        <a class="sidebar__delete" 
+           asp-action="DeleteTab"
+           asp-route-id="@item.Id">
+            <img class="sidebar__delete-img " src="http://mat-kapital-kpk.ru/images/close.png" alt="Alternate Text" />
+        </a>
+    </div>
 }

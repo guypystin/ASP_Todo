@@ -1,6 +1,5 @@
 ﻿using asp_todo.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,11 +55,19 @@ namespace asp_todo.Controllers
             return Redirect("/");
         }
 
-        //GET /todo/delete/5
-        public async Task<ActionResult> Delete(int id) //удаление записей
+        //GET /Home/DeleteMission/5
+        public async Task<ActionResult> DeleteMission(int id) //удаление записей
         {
-            Mission item = await _context.Missions.FindAsync(id);
-            _context.Missions.Remove(item);
+            Mission MissionItem = await _context.Missions.FindAsync(id);
+            _context.Missions.Remove(MissionItem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        //GET /Home/DeleteTab/5
+        public async Task<ActionResult> DeleteTab(int id) //удаление таблиц
+        {
+            Tab TabItem = await _context.Tabs.FindAsync(id);
+            _context.Tabs.Remove(TabItem);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
