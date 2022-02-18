@@ -38,7 +38,7 @@ namespace asp_todo.Controllers
 
                 );
             _context.SaveChanges();
-            return View(_context.Missions.ToList());
+            return ViewComponent("MissionTable", _context.Missions.ToList());
         }
 
         [HttpPost] 
@@ -77,7 +77,7 @@ namespace asp_todo.Controllers
         public async Task<ActionResult> TabClick(int id) //отвечает на ajax запрос
         {
             var tabList = _context.Missions.Where(p => p.Tab_Id == id);
-            return View("~/Views/Home/Index.cshtml", tabList.ToList());
+            return ViewComponent("MissionTable", tabList.ToList());
         }
     }
 }

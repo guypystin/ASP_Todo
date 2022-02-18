@@ -1,4 +1,6 @@
 using asp_todo.Models;
+using asp_todo.Models.Repository.Interfaces;
+using asp_todo.Models.Repository.Realizations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace asp_todo
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<MissionContext>(options => options.UseSqlServer(connection));
             services.AddTransient<ITabRepository, EFTabRepository>();
+            services.AddTransient<IMissionRepository, EFMissionRepository>();
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddControllersWithViews();

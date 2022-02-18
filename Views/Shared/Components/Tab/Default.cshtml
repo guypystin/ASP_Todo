@@ -3,9 +3,8 @@
 @foreach (var item in Model)
 {
     <div class="sidebar ">
-        <a class="btn-block sidebar__item" 
-           asp-route="Custom" 
-           asp-route-id="@item.Id">
+        <a class="btn-block sidebar__item roww" id="@item.Id"
+           onclick="tabClick(@item.Id)">
         @item.Name
         </a>
         <a class="sidebar__delete" 

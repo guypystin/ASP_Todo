@@ -13,45 +13,17 @@
     <form class="form-inline mb-3">
         <input minlength="1" id="missionForm" required type="text" name="name" value="" placeholder="Введите название задачи"
                class="form-control mr-3 first_form" />
-        <button class="btn btn-primary" onclick="clickIndex()">
+        <a class="btn btn-primary" onclick="clickIndex()">
             Добавить
-        </button>
+        </a>
     </form>
     <div class="content d-flex justify-content-between">
         <div class="content__left col-lg-3">
             @await Component.InvokeAsync("Tab")
         </div>
-        <table class="table content__right">
-            <tr>
-                <th>Задание</th>
-                <th>Время добавления</th>
-                <th>Статус выполнения</th>
-                <th></th>
-            </tr>
-            @foreach (var op in Model)
-            {
-
-                <tr>
-                    <td>@op.Name</td>
-                    <td>@op.Add_Time</td>
-                    <td>
-                        <form action="/" method="post">
-                            <input asp-for="@op.Complete"
-                                   type="checkbox"
-                                   name="name"
-                                   value="false" />
-                        </form>
-                    </td>
-                    <td>
-                        <a asp-action="DeleteMission"
-                           asp-route-id="@op.Id">
-                            Удалить
-                        </a>
-                    </td>
-                </tr>
-            }
-
-        </table>
+        <div class=" table content__right ">
+            @await Component.InvokeAsync("MissionTable", Model)
+        </div>
     </div>
 
 </div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Mission>
+
+<table>
+    <tr>
+        <th>Задание</th>
+        <th>Время добавления</th>
+        <th>Статус выполнения</th>
+        <th>Tab_id</th>
+    </tr>
+    @foreach (var op in Model)
+    {
+
+        <tr>
+            <td>@op.Name</td>
+             <td>@op.Add_Time</td>
+            <td>
+                <form action="/" method="post">
+                    <input asp-for="@op.Complete"
+                           type="checkbox"
+                           name="name"
+                           value="false" />
+                </form>
+            </td>
+            <td>
+                <a asp-action="DeleteMission"
+                   asp-route-id="@op.Id">
+                    Удалить
+                </a>
+            </td>
+            <td>
+                @op.Tab_Id
+            </td>
+        </tr>
+    }
+
+</table>
