@@ -1,6 +1,7 @@
 ﻿const { data, error } = require("jquery");
 var currentId = 0;
-function clickIndex() {
+
+function addMission() {
     var form = document.getElementById("missionForm");
     var formValue = `${form.value}`;
     //form.value = '';
@@ -10,21 +11,32 @@ function clickIndex() {
         Complete: false,
         Tab_Id: currentId
     };
-    $.ajax({
-        url: '/Home/Index',
-        dataType: 'text',
-        method: 'POST',
-        data: model,
-        success: function (data) {
-            console.log("Ок")
-            $(".content__right").html(data)
-        },
-        error: function (er) {
-            alert(er.fail);
-        }
-    });
+/*    if (model.Tab_Id != 0 || model.Tab_Id != undefined) {
+        
+    }*/
+    if (model.Tab_Id == undefined) {
+        alert("Вы не выбрали вкладку")
+    } else {
+        $.ajax({
+            url: `/Home/AddMission/${currentId}`,
+            dataType: 'text',
+            method: 'POST',
+            data: model,
+            success: function (data) {
+                console.log("Ок")
+                $(".content__right").html(data)
+            },
+            error: function (er) {
+                console.log(er.status);
+                console.log(er.fail);
+            }
+        });
+    }
+    
     return JSON;
 }
+
+
 function tabClick(id) {
     var getUrl = `/Home/TabClick/${id}`
     $.ajax({
@@ -33,21 +45,47 @@ function tabClick(id) {
         method: 'GET',
         success: function (data) {
             console.log("Ок")
-
             currentId = id;
-            
             $(".content__right").html(data);
-
-            document.querySelectorAll('.roww').forEach((currentRow, index, rows) => {
-                currentRow.addEventListener('click', () => {
-                    rows.forEach((row) => row.classList.remove('active'));
-                    currentRow.classList.add('active');
-                })
-            })
         },
         error: function (er) {
             alert(er);
         }
     });
     return JSON;
+}
+
+function deleteMission(id) {
+    $.ajax({
+        url: `/Home/DeleteMission/${id}`,
+        dataType: 'text',
+        method: 'GET',
+        success: function (data) {
+            console.log("Ок")
+            $(".content__right").html(data);
+        },
+        error: function (er) {
+            alert("Ошибка "+er.status);
+        }
+    });
+}
+function deleteTab(id) {
+    $.ajax({
+        url: `/Home/DeleteTab/${id}`,
+        dataType: 'text',
+        method: 'GET',
+        success: function (data) {
+            console.log("Ок")
+            $("body").html(data);
+        },
+        error: function (er) {
+            alert("Ошибка " + er.status);
+        }
+    });
+}
+window.onload() = function(){
+    var element = document.getElementById('sidebar');
+    if (!element) {
+        alert('сайдбара нет')
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using asp_todo.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +21,10 @@ namespace asp_todo.Controllers
             return View("~/Views/Home/Index.cshtml", _context.Missions.ToList());
         }
 
-        //POST /Home/Index
-        [Route("/Home/Index")] //Добавляет записи
+        //POST /Home/AddMission/{12}
+        [Route("/Home/AddMission/{TabId}")] //Добавляет записи
         [HttpPost]
-        public IActionResult Index(Mission mission)
+        public IActionResult Index(Mission mission, int TabId)
         {
             mission.Add_Time = System.DateTime.Now;
             _context.Missions.AddRange(
@@ -38,7 +39,9 @@ namespace asp_todo.Controllers
 
                 );
             _context.SaveChanges();
-            return ViewComponent("MissionTable", _context.Missions.ToList());
+
+            var curTable = _context.Missions.Where(p => p.Tab_Id == TabId);
+            return ViewComponent("MissionTable", curTable.ToList());
         }
 
         [HttpPost] 
@@ -59,17 +62,19 @@ namespace asp_todo.Controllers
         public async Task<ActionResult> DeleteMission(int id) //удаление записей
         {
             Mission MissionItem = await _context.Missions.FindAsync(id);
-            _context.Missions.Remove(MissionItem);
+             _context.Missions.Remove(MissionItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return ViewComponent("MissionTable", _context.Missions.ToList());
         }
         //GET /Home/DeleteTab/5
         public async Task<ActionResult> DeleteTab(int id) //удаление таблиц
         {
             Tab TabItem = await _context.Tabs.FindAsync(id);
             _context.Tabs.Remove(TabItem);
+            var deleteList = _context.Missions.Where(p => p.Tab_Id == id);
+            _context.Missions.RemoveRange(deleteList); //удаление всех связанных с таблицей заданий
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return View("~/Views/Home/Index.cshtml", _context.Missions.ToList()); //возврат на главную
         }
 
         //GET /Home//TabClick/25

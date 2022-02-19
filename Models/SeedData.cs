@@ -14,7 +14,7 @@ namespace asp_todo.Models
             MissionContext context = app.ApplicationServices
                 .GetRequiredService<MissionContext>();
             context.Database.Migrate();
-            
+            /*
             if (!context.Missions.Any())
             {
                 context.Missions.AddRange(
@@ -26,7 +26,7 @@ namespace asp_todo.Models
                     }
                 );
                 context.SaveChanges();
-            }
+            }*/
             
         }
     }

@@ -7,3 +7,9 @@
 function CreateMergeReport() {
     $.post("/Home/AddTab");
         };*/
+/*$(function () {
+    $(".sidebar").on("mouseover mouseout", function () {
+        //быстро изменяем стиль display
+        $(".sidebar").css("background", "black")
+    });
+});*/

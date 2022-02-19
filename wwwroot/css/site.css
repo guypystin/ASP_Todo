@@ -5,19 +5,16 @@ for details on configuring this project to bundle and minify static web assets. 
 /*border-collapse: collapse;*/ /* Убираем двойные линии между ячейками */
 /*margin-top: 50px;
 }*/
+a
 
-TD, TH {
-    padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid black; /* Параметры рамки */
+.main{
+    height:100vh;
 }
 
-TH {
-    background: #b0e0e6; /* Цвет фона */
-}
-.active, .btn:hover {
+/*.active, .btn:hover {
     background-color: #666;
     color: red;
-}
+}*/
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -95,8 +92,9 @@ body {
 tr {
     height: 50px;
 }
-.content__left{
-    padding-left:0px;
+.content__left {
+    padding:30px;
+    background: #E5E5E5;
 }
 .content__right {
     max-height:100px;
@@ -162,15 +160,55 @@ tr {
     margin-top:10px;
     margin-left:0px;
 }
-
+.sidebar:hover{
+    cursor:pointer;
+}
 .sidebar__item {
     text-decoration:none;
 }
-
+a:hover {
+    cursor: pointer;
+}
 .sidebar__delete {
+
+}
+.sidebar__delete:hover {
 }
 .sidebar__delete-img{
     width:20px;
     height:20px;
 
+}
+.line {
+    width: 1px;
+    background: #F1F1F1;
+    height:100vh;
+    margin-right:20px;
+    display:block;
+}
+.tab__form {
+    width: 100% !important;
+    margin-top: 20px;
+}
+.forms {
+    display: flex;
+    justify-content: space-between;
+}
+.tab__form-input {
+    width: 78% !important;
+}
+.tab__form-button {
+    width: 14%;
+}
+.mission__form {
+    width: 100% !important;
+    margin-top: 50px;
+}
+
+.mission__form-input {
+    width: 78% !important;
+}
+
+.mission__form-button {
+    width: 15%;
 }

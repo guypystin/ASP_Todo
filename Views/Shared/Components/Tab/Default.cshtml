@@ -1,16 +1,27 @@
 ﻿@model IEnumerable<Tab>
 
+    <form action="/" method="post" class="form-inline mb-3 tab__form forms">
+        <input minlength="1" class="form-control tab__form-input" required type="text" name="name" value=""
+               placeholder="Список" />
+        <button class="btn btn-primary tab__form-button" type="submit"
+                asp-controller="Home"
+                asp-action="AddTab">
+            +
+        </button>
+    </form>
+
 @foreach (var item in Model)
 {
+<div class="sidebar__list">
     <div class="sidebar ">
         <a class="btn-block sidebar__item roww" id="@item.Id"
            onclick="tabClick(@item.Id)">
-        @item.Name
+            @item.Name
         </a>
-        <a class="sidebar__delete" 
-           asp-action="DeleteTab"
-           asp-route-id="@item.Id">
+        <a class="sidebar__delete" id="@item.Id"
+           onclick="deleteTab(@item.Id)">
             <img class="sidebar__delete-img " src="http://mat-kapital-kpk.ru/images/close.png" alt="Alternate Text" />
         </a>
     </div>
+</div>
 }
