@@ -7,42 +7,42 @@
             +
         </a>
     </form>
-
-    <table class="table table-bordered">
+    <table class="table mission__table">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Задание</th>
                 <th scope="col">Время добавления</th>
-                <th scope="col">Статус выполнения</th>
-                <th scope="col">Tab_id</th>
                 <th scope="col"></th>
             </tr>
         </thead>
-        @foreach (var op in Model)
+        @foreach (var item in Model)
         {
-    <tbody>
-        <tr>
-            <td>@op.Name</td>
-            <td>@op.Add_Time</td>
-            <td>
-                <form action="/" method="post">
-                    <input asp-for="@op.Complete"
-                           type="checkbox"
-                           name="name"
-                           value="false" />
-                </form>
-            </td>
-            <td>
-                @op.Tab_Id
-            </td>
-            <td>
-                <a onclick="deleteMission(@op.Id)">
-                    Удалить
-                </a>
-            </td>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.Complete, 
+                       new { 
+                           id = item.Id,
+                           @class = "ActiveCheck",
+                           @onclick = "checkboxClick(this)",
+                       })
+</td>
+                    <td>@item.Name</td>
+                    <td>@item.Add_Time</td>
+                    <td>
+                        <a onclick="deleteMission(@item.Id)">
+                            <img class="sidebar__delete-img " src="/img/close.png" alt="Alternate Text" />
+                        </a>
+                    </td>
 
-        </tr>
-    </tbody>
+                </tr>
+            </tbody>
         }
-
+        
     </table>
+    <div class="tab__note alert alert-primary">
+        <p>
+            У вас еще нет ни одного списка, добавьте его при помощи формы слева &#128521
+        </p>
+    </div>

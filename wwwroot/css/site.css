@@ -11,6 +11,15 @@ a
     height:100vh;
 }
 
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+.table{
+    font-size:22px;
+}
 /*.active, .btn:hover {
     background-color: #666;
     color: red;
@@ -27,7 +36,9 @@ a.navbar-brand {
 a {
     color: #0366d6;
 }
-
+.active{
+    color:red;
+}
 .btn-primary {
     color: #fff !important;
     background-color: #1b6ec2;
@@ -199,6 +210,10 @@ a:hover {
 }
 .tab__form-button {
     width: 14%;
+}
+.tab__note {
+    display: none;
+    margin-top: 50px;
 }
 .mission__form {
     width: 100% !important;

@@ -13,3 +13,9 @@ function CreateMergeReport() {
         $(".sidebar").css("background", "black")
     });
 });*/
+var element = document.getElementsByClassName("sidebar")[0];
+if (!element) {
+    $(".mission__form").css("display", "none");
+    $(".mission__table").css("display", "none");
+    $(".tab__note").css("display", "block");
+}

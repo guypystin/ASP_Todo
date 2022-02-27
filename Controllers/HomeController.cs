@@ -59,12 +59,14 @@ namespace asp_todo.Controllers
         }
 
         //GET /Home/DeleteMission/5
-        public async Task<ActionResult> DeleteMission(int id) //удаление записей
+        [Route("/Home/DeleteMission/{Tab_id}/{id}")]
+        public async Task<ActionResult> DeleteMission(int id, int Tab_id) //удаление записей
         {
             Mission MissionItem = await _context.Missions.FindAsync(id);
              _context.Missions.Remove(MissionItem);
             await _context.SaveChangesAsync();
-            return ViewComponent("MissionTable", _context.Missions.ToList());
+            var tabList = _context.Missions.Where(p => p.Tab_Id == Tab_id);
+            return ViewComponent("MissionTable", tabList.ToList());
         }
         //GET /Home/DeleteTab/5
         public async Task<ActionResult> DeleteTab(int id) //удаление таблиц
@@ -82,6 +84,16 @@ namespace asp_todo.Controllers
         public async Task<ActionResult> TabClick(int id) //отвечает на ajax запрос
         {
             var tabList = _context.Missions.Where(p => p.Tab_Id == id);
+            return ViewComponent("MissionTable", tabList.ToList());
+        }
+
+        [Route("/Home/checkboxClick")]
+        public async Task<ActionResult> CompleteClick(int id, bool value, int Tab_id) //отвечает на ajax запрос
+        {
+            Mission mission = _context.Missions.Find(id);
+            mission.Complete = value;
+            _context.SaveChanges();
+            var tabList = _context.Missions.Where(p => p.Tab_Id == Tab_id);
             return ViewComponent("MissionTable", tabList.ToList());
         }
     }

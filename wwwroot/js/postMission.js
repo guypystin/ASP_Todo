@@ -1,19 +1,15 @@
 ﻿const { data, error } = require("jquery");
-var currentId = 0;
+var currentId = 0; //активный список задач
 
 function addMission() {
     var form = document.getElementById("missionForm");
     var formValue = `${form.value}`;
-    //form.value = '';
     var model =
     {
         Name: formValue,
         Complete: false,
         Tab_Id: currentId
     };
-/*    if (model.Tab_Id != 0 || model.Tab_Id != undefined) {
-        
-    }*/
     if (model.Tab_Id == undefined) {
         alert("Вы не выбрали вкладку")
     } else {
@@ -23,7 +19,7 @@ function addMission() {
             method: 'POST',
             data: model,
             success: function (data) {
-                console.log("Ок")
+                console.log("задача добавлена")
                 $(".content__right").html(data)
             },
             error: function (er) {
@@ -32,7 +28,7 @@ function addMission() {
             }
         });
     }
-    
+
     return JSON;
 }
 
@@ -44,9 +40,15 @@ function tabClick(id) {
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            console.log("Ок")
+            console.log("Клик по вкладке " + currentId)
             currentId = id;
             $(".content__right").html(data);
+
+            /*Пометка активного таба*/
+            $(".sidebar").click(function () {
+                $(".sidebar").removeClass("active");
+                $(this).addClass("active");
+            });
         },
         error: function (er) {
             alert(er);
@@ -57,15 +59,15 @@ function tabClick(id) {
 
 function deleteMission(id) {
     $.ajax({
-        url: `/Home/DeleteMission/${id}`,
+        url: `/Home/DeleteMission/${currentId}/${id}`,
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            console.log("Ок")
+            console.log("Задача удалена")
             $(".content__right").html(data);
         },
         error: function (er) {
-            alert("Ошибка "+er.status);
+            alert("Ошибка " + er.status);
         }
     });
 }
@@ -75,7 +77,7 @@ function deleteTab(id) {
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            console.log("Ок")
+            console.log("Вкладка удалена")
             $("body").html(data);
         },
         error: function (er) {
@@ -83,9 +85,27 @@ function deleteTab(id) {
         }
     });
 }
-window.onload() = function(){
-    var element = document.getElementById('sidebar');
-    if (!element) {
-        alert('сайдбара нет')
-    }
+
+function checkboxClick(elem) {
+    var value = $(elem).prop("checked");
+    var id = $(elem).attr('id');
+        $.ajax({
+            url: `/Home/checkboxClick`,
+            dataType: 'text',
+            method: 'POST',
+            data: {
+                id: id,
+                value: value,
+                Tab_Id: currentId
+            },
+            success: function (data) {
+                console.log("состояние задачи изменено");
+                $(".content__right").html(data);
+            },
+            error: function (er) {
+                console.log('ошибка чекбокса ' + er.status);
+                console.log(er.fail);
+            }
+        })
+    
 }
