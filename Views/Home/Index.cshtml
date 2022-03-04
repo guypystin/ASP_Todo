@@ -7,7 +7,31 @@
         </div>
         <div class="line"></div>
         <div class=" table content__right ">
-            @await Component.InvokeAsync("MissionTable", Model)
+            <form class="form-inline mb-3 mission__form forms" onkeypress="if(event.keyCode == 13) return false;" id="missForm">
+                <input minlength="1" id="missionForm" required type="text" name="name" value="" placeholder="Задача"
+                       class="form-control mr-3 mission__form-input" />
+                <a role="button" class="btn btn-primary mission__form-button mission__button" onclick="addMission()">
+                    +
+                </a>
+            </form>
+            <table class="table mission__table">
+                <thead class="mission__table-thead">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="w-25">Задание</th>
+                        <th scope="col">Время добавления</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="mission__table-tbody">
+                    @await Component.InvokeAsync("MissionTable", Model)
+                </tbody>
+            </table>
+            <div class="tab__note alert alert-primary">
+                <p>
+                    У вас еще нет ни одного списка, добавьте его при помощи формы слева &#128521
+                </p>
+            </div>
         </div>
     </div>
 

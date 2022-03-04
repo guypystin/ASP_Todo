@@ -36,8 +36,11 @@ a.navbar-brand {
 a {
     color: #0366d6;
 }
-.active{
-    color:red;
+.active {
+    color: #fff !important;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
 }
 .btn-primary {
     color: #fff !important;
@@ -186,8 +189,8 @@ a:hover {
 .sidebar__delete:hover {
 }
 .sidebar__delete-img{
-    width:20px;
-    height:20px;
+    width:30px;
+    height:30px;
 
 }
 .line {
@@ -226,4 +229,21 @@ a:hover {
 
 .mission__form-button {
     width: 15%;
+}
+.edit {
+    width: 30px;
+    height: 30px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.mission__button {
+    color: white !important;
 }

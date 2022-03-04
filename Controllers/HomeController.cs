@@ -1,5 +1,6 @@
 ﻿using asp_todo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,12 +36,10 @@ namespace asp_todo.Controllers
                     Add_Time = mission.Add_Time,
                     Complete = mission.Complete,
                     Tab_Id = mission.Tab_Id
-                }
-
-                );
+                });
             _context.SaveChanges();
-
             var curTable = _context.Missions.Where(p => p.Tab_Id == TabId);
+
             return ViewComponent("MissionTable", curTable.ToList());
         }
 
@@ -53,8 +52,8 @@ namespace asp_todo.Controllers
                     Id = tab.Id,
                     Name = tab.Name
                 });
-
             _context.SaveChanges();
+
             return Redirect("/");
         }
 
@@ -65,8 +64,8 @@ namespace asp_todo.Controllers
             Mission MissionItem = await _context.Missions.FindAsync(id);
              _context.Missions.Remove(MissionItem);
             await _context.SaveChangesAsync();
-            var tabList = _context.Missions.Where(p => p.Tab_Id == Tab_id);
-            return ViewComponent("MissionTable", tabList.ToList());
+            var tabList = await _context.Missions.Where(p => p.Tab_Id == Tab_id).ToListAsync();
+            return ViewComponent("MissionTable", tabList);
         }
         //GET /Home/DeleteTab/5
         public async Task<ActionResult> DeleteTab(int id) //удаление таблиц
@@ -81,20 +80,29 @@ namespace asp_todo.Controllers
 
         //GET /Home//TabClick/25
         [Route("/Home/TabClick/{id}", Name = "Custom")] 
-        public async Task<ActionResult> TabClick(int id) //отвечает на ajax запрос
+        public async Task<ActionResult> TabClick(int id)
         {
             var tabList = _context.Missions.Where(p => p.Tab_Id == id);
             return ViewComponent("MissionTable", tabList.ToList());
         }
 
         [Route("/Home/checkboxClick")]
-        public async Task<ActionResult> CompleteClick(int id, bool value, int Tab_id) //отвечает на ajax запрос
+        public async Task<ActionResult> CompleteClick(int id, bool value, int Tab_id)
         {
-            Mission mission = _context.Missions.Find(id);
+            Mission mission = await _context.Missions.FindAsync(id);
             mission.Complete = value;
             _context.SaveChanges();
-            var tabList = _context.Missions.Where(p => p.Tab_Id == Tab_id);
-            return ViewComponent("MissionTable", tabList.ToList());
+            var tabList = await _context.Missions.Where(p => p.Tab_Id == Tab_id).ToListAsync();
+            return ViewComponent("MissionTable", tabList);
+        }
+
+        public async Task<ActionResult> Edit(int id, string text, int Tab_id) 
+        {
+            Mission mission = await _context.Missions.FindAsync(id);
+            mission.Name = text;
+            await _context.SaveChangesAsync();
+            var tabList = await _context.Missions.Where(p => p.Tab_Id == Tab_id).ToListAsync();
+            return ViewComponent("MissionTable", tabList);
         }
     }
 }

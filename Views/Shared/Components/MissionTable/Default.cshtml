@@ -1,48 +1,31 @@
 ﻿@model IEnumerable<Mission>
 
-    <form class="form-inline mb-3 mission__form forms">
-        <input minlength="1" id="missionForm" required type="text" name="name" value="" placeholder="Задача"
-               class="form-control mr-3 mission__form-input" />
-        <a role="button" class="btn btn-primary mission__form-button" onclick="addMission()">
-            +
-        </a>
-    </form>
-    <table class="table mission__table">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Задание</th>
-                <th scope="col">Время добавления</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.CheckBoxFor(modelItem => item.Complete, 
-                       new { 
-                           id = item.Id,
-                           @class = "ActiveCheck",
-                           @onclick = "checkboxClick(this)",
-                       })
-</td>
-                    <td>@item.Name</td>
-                    <td>@item.Add_Time</td>
-                    <td>
-                        <a onclick="deleteMission(@item.Id)">
-                            <img class="sidebar__delete-img " src="/img/close.png" alt="Alternate Text" />
-                        </a>
-                    </td>
 
-                </tr>
-            </tbody>
-        }
-        
-    </table>
-    <div class="tab__note alert alert-primary">
-        <p>
-            У вас еще нет ни одного списка, добавьте его при помощи формы слева &#128521
-        </p>
-    </div>
+@foreach (var item in Model)
+{
+
+    <tr id="@item.Id">
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Complete, new
+            {
+                id = item.Id,
+                @class = "ActiveCheck",
+                @onclick = "checkboxClick(this)",
+            })
+        </td>
+        <td class="editable">@item.Name</td>
+        <td>@item.Add_Time</td>
+        <td>
+            <a class="mission__table-edit-a unselectable" onclick="editMission(`@item.Id`, `@item.Name`)">
+                <img class="mission__table-edit edit" src="/img/edit.svg" alt="Alternate Text" />
+            </a>
+        </td>
+        <td>
+            <a onclick="deleteMission(@item.Id)" class="unselectable">
+                <img class="sidebar__delete-img " src="/img/close.png" alt="Alternate Text" />
+            </a>
+        </td>
+
+    </tr>
+}
+
