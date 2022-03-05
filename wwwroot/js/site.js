@@ -19,3 +19,13 @@ if (!element) {
     $(".mission__table").css("display", "none");
     $(".tab__note").css("display", "block");
 }
+
+localStorage.setItem('current', '0'); //хранилище для нажатий по спискам
+
+function getLocalStorage() { //получение информации из хранилища
+    return localStorage.getItem('current');
+}
+function setLocalStorage(value) { //установка информации в хранилище
+    return localStorage.setItem('current', `${value}`);
+}
+

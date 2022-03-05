@@ -92,8 +92,8 @@ namespace asp_todo.Controllers
             Mission mission = await _context.Missions.FindAsync(id);
             mission.Complete = value;
             _context.SaveChanges();
-            var tabList = await _context.Missions.Where(p => p.Tab_Id == Tab_id).ToListAsync();
-            return ViewComponent("MissionTable", tabList);
+            var tabList = _context.Missions.Where(p => p.Tab_Id == Tab_id);
+            return ViewComponent("MissionTable", tabList.ToList());
         }
 
         public async Task<ActionResult> Edit(int id, string text, int Tab_id) 

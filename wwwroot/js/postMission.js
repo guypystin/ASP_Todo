@@ -1,22 +1,19 @@
 ﻿const { data, error } = require("jquery");
-var currentId = 0; //активный список задач
-
-
 
 function addMission() {
-    var form = document.getElementById("missionForm");
-    var formValue = `${form.value}`;
-    var model =
+    let form = document.getElementById("missionForm");
+    let formValue = `${form.value}`;
+    let model =
     {
         Name: formValue,
         Complete: false,
-        Tab_Id: currentId
+        Tab_Id: getLocalStorage()
     };
     if (model.Tab_Id == undefined) {
         alert("Вы не выбрали вкладку")
     } else {
         $.ajax({
-            url: `/Home/AddMission/${currentId}`,
+            url: `/Home/AddMission/${getLocalStorage()}`,
             dataType: 'text',
             method: 'POST',
             data: model,
@@ -35,32 +32,30 @@ function addMission() {
 
 
 function tabClick(id) {
+    setLocalStorage(id)
     var getUrl = `/Home/TabClick/${id}`
     $.ajax({
         url: getUrl,
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            console.log("Клик по вкладке " + currentId)
-            currentId = id;
             $(".mission__table-tbody").html(data);
-
             /*Пометка активного таба*/
-            $(".sidebar").click(function () {
-                $(".sidebar").removeClass("active");
-                $(this).addClass("active");
-            });
+            console.log("Клик по вкладке " + getLocalStorage());
         },
         error: function (er) {
-            alert(er);
+            console.log(er.code);
         }
     });
-    return JSON;
+    $(".sidebar").click(function () {
+        $(".sidebar").removeClass("active");
+        $(this).addClass("active");
+    });
 }
 
 function deleteMission(id) {
     $.ajax({
-        url: `/Home/DeleteMission/${currentId}/${id}`,
+        url: `/Home/DeleteMission/${getLocalStorage()}/${id}`,
         dataType: 'text',
         method: 'GET',
         success: function (data) {
@@ -90,25 +85,30 @@ function deleteTab(id) {
 function checkboxClick(elem) {
     var value = $(elem).prop("checked");
     var id = $(elem).attr('id');
-        $.ajax({
-            url: `/Home/checkboxClick`,
-            dataType: 'text',
-            method: 'POST',
-            data: {
-                id: id,
-                value: value,
-                Tab_Id: currentId
-            },
-            success: function (data) {
+    $.ajax({
+        url: `/Home/checkboxClick`,
+        dataType: 'text',
+        method: 'POST',
+        data: {
+            id: id,
+            value: value,
+            Tab_Id: getLocalStorage()
+        },
+        success: function (data) {
+            if (getLocalStorage() == 0) {
+                console.log('ошибка чекбокса, не выбрана вкладка');
+            } else {
                 console.log("состояние задачи изменено");
                 $(".mission__table-tbody").html(data);
-            },
-            error: function (er) {
-                console.log('ошибка чекбокса ' + er.status);
-                console.log(er.fail);
             }
-        })
-    
+            
+        },
+        error: function (er) {
+            console.log('ошибка чекбокса ' + er.status);
+            console.log(er.fail);
+        }
+    })
+
 }
 
 function editMission(id, name) {
@@ -122,7 +122,7 @@ function editMission(id, name) {
     oldButton.text("изменить")
     oldButton.css("background", "green");
     oldButton.css("transition", "0.3s")
-    
+
     newForm.val(name);
     newForm.focusin(function () {
         $(this).css("box-shadow", "0 0 0 0.2rem rgb(0 255 0 / 25%)")
@@ -144,7 +144,7 @@ function editToController(id, name) {
 
     oldButton.css("display", "block");
     oldButton.css("background", "");
-    
+
     newForm.focusin(function () {
         $(this).css("box-shadow", "0 0 0 0.2rem rgb(0 123 255 / 25%)")
         $(this).css("transition", "0.3s")
@@ -153,7 +153,7 @@ function editToController(id, name) {
         $(this).css("box-shadow", "")
         $(this).css("transition", "0.3s")
     });
-    
+
     $.ajax({
         url: `/Home/Edit`,
         dataType: 'text',
@@ -161,7 +161,7 @@ function editToController(id, name) {
         data: {
             id: id,
             text: txt,
-            Tab_Id: currentId
+            Tab_Id: getLocalStorage()
         },
         success: function (data) {
             $(".mission__table-tbody").html(data);
@@ -175,5 +175,5 @@ function editToController(id, name) {
             console.log(er.fail);
         }
     })
-   
+
 }
